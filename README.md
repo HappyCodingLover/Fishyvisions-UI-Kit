@@ -1,132 +1,44 @@
-# Expo with Storybook
+# Storybook Example
 
-[Expo](www.expo.io) is a great tool for building React Native app. [Storybook](storybook.js.org) is a great tool for building and testing view components. This README describes the steps necessary to get these two great tools to work together. This repository contains the final product of running through these steps.
+<p>
+  <!-- iOS -->
+  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
+  <!-- Android -->
+  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
+  <!-- Web -->
+  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
+</p>
 
-## Create a new Expo project:
+<img alt="expo examples" src="https://i.imgur.com/j253BeR.png">
 
-```
-$ exp init expo-with-storybook-howto
-? Choose a template type: blank
-[exp] Downloading project files...
-[exp] Extracting project files...
-[exp] Customizing project...
-[exp] Starting project...
-[exp] Your project is ready at /blah/expo-with-storybook-howto. Use "exp start /blah/expo-with-storybook-howto" to get started.
-```
+You can use Storybook to test and share your component library quickly and easily! This example shows how to use Expo modules with Storybook CLI and Expo CLI.
 
-## Install dependencies
-```
-$ npm i --save-dev @storybook/react-native exp react-dom@16.0.0-alpha.12 concurrently
-$ npm i --save react-native-vector-icons
-```
+> This is setup as Storybook with Expo, instead of Expo with Storybook. This means that it's a dedicated RN app for Storybook, instead of attaching a Storybook instance to your current app (if you have one). If you have a pre-existing app setup with Expo, you could setup Storybook in the same project. This is setup to be separate, for something like a design system.
 
-## Add scripts to package.json
+## Getting Started
 
-```
-"scripts": {
-  "storybook": "concurrently --kill-others \"storybook start -p 19001\" \"exp start --http\""
-},
+1. `yarn` - Install dependencies
+1. `yarn web` - Run Storybook
 
-```
+### Running on Native Devices
 
-## Make a directory for Storybook
+1. `yarn start` - Start Expo in browser (should open a new tab)
+1. Wait for app to bundle. This may take 30+ seconds.
+1. Use QR code from Expo to open app on testing device (or press `i` to open simulator if available)
+
+### 📁 File Structure
 
 ```
-$ mkdir storybook
+Storybook with Expo CLI
+├── stories
+│   ├── index.js ➡️ Native story imports
+│   └── Example.stories.js ➡️ A Storybook page to render
+├── assets ➡️ All static assets for your project
+├── App.tsx ➡️ Entry Point for universal Expo apps
+├── app.config.js ➡️ Expo config file
+└── babel.config.js ➡️ Babel config (should be using `babel-preset-expo`)
 ```
 
-## Create Storybook files:
+## 📝 Notes
 
-Create a file called [storybook/index.js](storybook/index.js):
-```
-import { getStorybookUI, configure } from '@storybook/react-native'
-import React from 'react'
-import { NativeModules } from 'react-native'
-import url from 'url'
-
-import '@storybook/addon-actions/register'
-
-configure( () => {
-  require('./stories')
-}, module )
-
-const { hostname } = url.parse( NativeModules.SourceCode.scriptURL )
-
-const StorybookUI = getStorybookUI( { port: 19001, host: hostname } )
-
-export default StorybookUI
-```
-
-
-Create a new file called [storybook/stories.js](storybook/stories.js):
-```
-import '../src/components/Button.stories'
-```
-
-## Create a component
-```
-$ mkdir -p src/components
-```
-
-In this example, I created [src/components/Button.js](src/components/Button.js)
-
-
-## Create a story for the component
-
-In this example, I created [src/components/Button.stories.js](src/components/Button.stories.js), which looks like this:
-
-```
-import React from 'react'
-import { storiesOf } from '@storybook/react-native'
-
-import Button from './Button'
-
-storiesOf('components/Button', module).add('with Text', () =>
-  <Button>
-    Text
-  </Button>
-)
-
-storiesOf('components/Button', module).add('with Text2', () =>
-  <Button>
-    Text2
-  </Button>
-)
-```
-
-## Move app entry point into src folder
-
-```
-$ mv App.js src/index.js
-```
-
-## Create a new app entry point
-
-Create a new `/App.js` that looks like this:
-
-```
-export default (__DEV__
-  ? require('./storybook').default
-  : require('./src').defaut);
-```
-
-In my opinion, this is not the ideal way to set it up in a real app, because it will always display Storybook on your local machine and you can only see the real app when you build / publish to expo.
-
-[According to the
-documentation](https://github.com/storybooks/storybook/tree/master/app/react-native#create-react-native-app-crna):
-
-> Alternatively, StorybookUI is simply a RN View component that can be embedded anywhere in your RN application, e.g. on a tab or within an admin screen.
-
-## Start Storybook and the simulator
-```
-$ npm run storybook
-```
-
-Go to [http://localhost:19001/](http://localhost:19001/)
-
-## References
-* [Storybook for React Native](https://github.com/storybooks/storybook/tree/master/app/react-native)
-* [Storybook for React Native - Manual Setup instructions](https://github.com/storybooks/storybook/blob/master/app/react-native/docs/manual-setup.md)
-* [An open-source app that uses Storybook](https://github.com/serlo-org/serlo-abc)
-* [Using React Native Storybook 2 with Create React Native App](https://medium.com/@inyono/using-react-native-storybook-with-create-react-native-app-471e531bb128)
-* [Storybook for React documentation](https://storybook.js.org/basics/guide-react/)
+- [Storybook React Native](https://storybook.js.org/docs/guides/guide-react-native/)
