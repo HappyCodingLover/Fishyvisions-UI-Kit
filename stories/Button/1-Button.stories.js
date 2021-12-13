@@ -1,8 +1,22 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react-native";
-import { Button } from "react-native";
+import { Button } from "./Button";
 import styled from "styled-components/native";
+import ButtonIconDefalut from "../../assets/Button/button.svg";
+
+export default {
+  component: Button,
+  title: "Button",
+};
+
+const Template = (args) => <Button {...args} />;
+
+export const Primary = (args) => <Template {...args} />;
+Primary.args = {
+  label: "Primary Button",
+  color: "lightgrey",
+};
 
 const StyledButton = styled.TouchableOpacity`
   background-color: red;
@@ -13,12 +27,8 @@ const StyledText = styled.Text`
   color: white;
 `;
 
-export default {
-  title: "Button",
-};
-
 export const text = () => (
-  <Button title="Hello Button" onPress={action("clicked")} />
+  <Button label="Hello Button" onPress={action("clicked")} />
 );
 export const styledComponent = () => (
   <StyledButton onPress={action("clicked")}>
@@ -26,7 +36,7 @@ export const styledComponent = () => (
   </StyledButton>
 );
 export const red = () => (
-  <Button title="Hello Button" color="red" onPress={action("clicked")} />
+  <Button label="Hello Button" color="red" onPress={action("clicked")} />
 );
 
 // On-Device Register
