@@ -18,6 +18,13 @@ Primary.args = {
   color: "lightgrey",
 };
 
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  label: "With Icon",
+  icon: ButtonIconDefalut,
+  onClick: () => alert("hello"),
+};
+
 const StyledButton = styled.TouchableOpacity`
   background-color: red;
   padding: 3px;

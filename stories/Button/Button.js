@@ -33,6 +33,11 @@ export const Button = ({
       ? "18px"
       : size === "wide" && "14px"};
   `;
+  const Image = styled.Image`
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+  `;
   const IconImage = styled.Image`
     ${label || (children && icon && iconAlign === "left")
       ? "pr-2.5"
@@ -42,7 +47,7 @@ export const Button = ({
   `;
   return (
     <ButtonContainer {...props}>
-      {icon && iconAlign === "left" && <IconImage source={icon} />}
+      {icon && iconAlign === "left" && <Image source={icon} />}
       {<Text>{label}</Text> || children}
       {icon && iconAlign === "right" && <IconImage source={icon} />}
     </ButtonContainer>

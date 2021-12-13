@@ -40,6 +40,7 @@
     "jest-expo": "^38.0.2",
     "prettier": "^2.1.1",
     "react-test-renderer": "^16.13.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^3.7.2"
   },
   "jest": {
